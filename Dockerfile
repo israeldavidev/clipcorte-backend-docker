@@ -1,9 +1,9 @@
 FROM node:18
 
-RUN apt-get update -y && \
-    apt-get install -y ffmpeg python3-pip && \
-    pip3 install yt-dlp && \
-    apt-get clean
+RUN apt-get update -y
+RUN apt-get install -y ffmpeg python3-pip
+RUN pip3 install yt-dlp
+RUN apt-get clean
 
 WORKDIR /app
 COPY . .
