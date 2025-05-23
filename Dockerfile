@@ -1,15 +1,13 @@
 FROM node:18
 
-RUN apt-get update -y && \
-    apt-get install -y ffmpeg python3-pip curl && \
-    curl -L https://yt-dlp.org/downloads/latest/yt-dlp -o /usr/local/bin/yt-dlp && \
-    chmod a+rx /usr/local/bin/yt-dlp
-
 WORKDIR /app
-COPY . .
 
+COPY package*.json ./
 RUN npm install
 
-EXPOSE 3000
+# Instalar ffmpeg e yt-dlp nativamente
+RUN apt-get update && apt-get install -y ffmpeg python3-pip && pip3 install yt-dlp
 
-CMD ["npm", "start"]
+COPY . .
+
+CMD ["node", "server.js"]
